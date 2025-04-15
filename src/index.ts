@@ -6,7 +6,10 @@ import {
   gte,
   lt,
   lte,
+  major,
+  minor,
   neq,
+  patch,
 } from "./helpers";
 
 export {
@@ -16,7 +19,10 @@ export {
   gte,
   lt,
   lte,
+  major,
+  minor,
   neq,
+  patch,
 };
 
 export default {
@@ -27,4 +33,7 @@ export default {
   lte,
   neq,
   compare,
+  major,
+  minor,
+  patch,
 };

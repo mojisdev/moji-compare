@@ -1,4 +1,5 @@
 import { compare } from "./compare";
+import { validateAndParse } from "./utils";
 
 /**
  * Checks if the first version is less than the second version.
@@ -95,4 +96,40 @@ export function eq(v1: string, v2: string): boolean {
  */
 export function neq(v1: string, v2: string): boolean {
   return !compare(v1, v2, "=");
+}
+
+/**
+ * Extract the major version number from a valid semver string.
+ *
+ * @param version - A semver version string (e.g. "1.2.3")
+ * @returns The major version number as a string
+ * @throws {Error} If the version string is invalid
+ */
+export function major(version: string): string {
+  const { major } = validateAndParse(version);
+  return major;
+}
+
+/**
+ * Extract the minor version number from a valid semver string.
+ *
+ * @param version - A semver version string (e.g. "1.2.3")
+ * @returns The minor version number as a string
+ * @throws {Error} If the version string is invalid
+ */
+export function minor(version: string): string {
+  const { minor } = validateAndParse(version);
+  return minor;
+}
+
+/**
+ * Extract the patch version number from a valid semver string.
+ *
+ * @param version - A semver version string (e.g. "1.2.3")
+ * @returns The patch version number as a string
+ * @throws {Error} If the version string is invalid
+ */
+export function patch(version: string): string {
+  const { patch } = validateAndParse(version);
+  return patch;
 }

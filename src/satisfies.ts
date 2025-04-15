@@ -1,13 +1,12 @@
 import type { Operator } from "./utils";
 import { compare } from "./compare";
-import { compareSegments, validateAndParse } from "./utils";
 
 /**
- * Match [npm semver](https://docs.npmjs.com/cli/v6/using-npm/semver) version range.
+ * Match Semver version range.
  *
- * @param version Version number to match
- * @param range Range pattern for version
- * @returns `true` if the version number is within the range, `false` otherwise.
+ * @param {string} version Version number to match
+ * @param {string} range Range pattern for version
+ * @returns {boolean} `true` if the version number is within the range, `false` otherwise.
  *
  * @example
  * ```

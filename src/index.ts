@@ -1,5 +1,4 @@
 import { compare } from "./compare";
-
 import {
   eq,
   gt,
@@ -8,6 +7,7 @@ import {
   lte,
   neq,
 } from "./helpers";
+import { satisfies } from "./satisfies";
 
 export {
   compare,
@@ -17,6 +17,7 @@ export {
   lt,
   lte,
   neq,
+  satisfies,
 };
 
 export default {
@@ -27,4 +28,5 @@ export default {
   lte,
   neq,
   compare,
+  satisfies,
 };

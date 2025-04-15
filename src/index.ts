@@ -268,3 +268,15 @@ export function eq(v1: string, v2: string): boolean {
 export function neq(v1: string, v2: string): boolean {
   return !compare(v1, v2, "=");
 }
+
+export default {
+  compare,
+  lt,
+  gt,
+  lte,
+  gte,
+  eq,
+  neq,
+  validateAndParse,
+  compareStrings,
+};

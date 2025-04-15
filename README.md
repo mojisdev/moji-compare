@@ -5,6 +5,9 @@
 
 Compare Emoji & Unicode versions
 
+> [!NOTE]
+> This is based on code from [`omichelsen/compare-versions`](https://github.com/omichelsen/compare-versions), but changed to work better with emoji and unicode versions.
+
 ## 📦 Installation
 
 ```bash
@@ -16,11 +19,11 @@ npm install @mojis/moji-compare
 ```ts
 import { compare } from "@mojis/moji-compare";
 
-compare('10.1.8', '10.0.4', '>');  // true
-compare('10.0.1', '10.0.1', '=');  // true
-compare('10.1.1', '10.2.2', '<');  // true
-compare('10.1.1', '10.2.2', '<='); // true
-compare('10.1.1', '10.2.2', '>='); // false
+compare("10.1.8", "10.0.4", ">"); // true
+compare("10.0.1", "10.0.1", "="); // true
+compare("10.1.1", "10.2.2", "<"); // true
+compare("10.1.1", "10.2.2", "<="); // true
+compare("10.1.1", "10.2.2", ">="); // false
 ```
 
 ## 📄 License

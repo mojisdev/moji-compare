@@ -1,6 +1,6 @@
 {
   "name": "@mojis/moji-compare",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Compare Emoji & Unicode versions",
   "type": "module",
   "author": {

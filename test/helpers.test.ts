@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { eq, gt, gte, lt, lte, neq } from "../src/helpers";
+import { eq, gt, gte, lt, lte, major, minor, neq, patch } from "../src/helpers";
 
 describe("lt", () => {
   it.each([
@@ -95,5 +95,68 @@ describe("gt", () => {
   ])("gt($v1, $v2) -> $expected", ({ v1, v2, expected }) => {
     const result = gt(v1, v2);
     expect(result).toBe(expected);
+  });
+});
+
+describe("major", () => {
+  it.each([
+    { version: "1.2.3", expected: "1" },
+    { version: "10.0.0", expected: "10" },
+    { version: "0.2.3", expected: "0" },
+    { version: "v1.2.3", expected: "1" },
+    { version: "1.2.3-alpha", expected: "1" },
+    { version: "1.2.3+build", expected: "1" },
+    { version: "1.x.x", expected: "1" },
+  ])("major($version) -> $expected", ({ version, expected }) => {
+    expect(major(version)).toBe(expected);
+  });
+
+  it("throws for invalid versions", () => {
+    expect(() => major("invalid")).toThrow();
+    expect(() => major("1.2.3a")).toThrow();
+    expect(() => major("1.2.")).toThrow();
+  });
+});
+
+describe("minor", () => {
+  it.each([
+    { version: "1.2.3", expected: "2" },
+    { version: "10.5.0", expected: "5" },
+    { version: "0.0.3", expected: "0" },
+    { version: "v1.2.3", expected: "2" },
+    { version: "1.2.3-alpha", expected: "2" },
+    { version: "1.2.3+build", expected: "2" },
+    { version: "1.x.x", expected: "x" },
+    { version: "1", expected: "0" },
+  ])("minor($version) -> $expected", ({ version, expected }) => {
+    expect(minor(version)).toBe(expected);
+  });
+
+  it("throws for invalid versions", () => {
+    expect(() => minor("invalid")).toThrow();
+    expect(() => minor("1.2.3a")).toThrow();
+    expect(() => minor("1.2.")).toThrow();
+  });
+});
+
+describe("patch", () => {
+  it.each([
+    { version: "1.2.3", expected: "3" },
+    { version: "10.5.7", expected: "7" },
+    { version: "0.0.0", expected: "0" },
+    { version: "v1.2.3", expected: "3" },
+    { version: "1.2.3-alpha", expected: "3" },
+    { version: "1.2.3+build", expected: "3" },
+    { version: "1.2.x", expected: "x" },
+    { version: "1.2", expected: "0" },
+    { version: "1", expected: "0" },
+  ])("patch($version) -> $expected", ({ version, expected }) => {
+    expect(patch(version)).toBe(expected);
+  });
+
+  it("throws for invalid versions", () => {
+    expect(() => patch("invalid")).toThrow();
+    expect(() => patch("1.2.3a")).toThrow();
+    expect(() => patch("1.2.")).toThrow();
   });
 });

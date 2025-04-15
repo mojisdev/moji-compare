@@ -9,9 +9,9 @@ import { compare } from "./compare";
  * @returns {boolean} `true` if the version number is within the range, `false` otherwise.
  *
  * @example
- * ```
- * satisfies('1.1.0', '^1.0.0'); // return true
- * satisfies('1.1.0', '~1.0.0'); // return false
+ * ```ts
+ * satisfies('1.1.0', '>=1.0.0'); // return true
+ * satisfies('1.1.0', '<=1.0.0'); // return false
  * ```
  */
 export function satisfies(version: string, range: string): boolean {

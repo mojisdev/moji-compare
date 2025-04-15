@@ -1,6 +1,6 @@
 export type Operator = ">" | ">=" | "=" | "<" | "<=";
 
-const SEMVER_REGEX = /^v?(\d+)(?:\.(\d+|[xX*]))?(?:\.(\d+|[xX*]))?(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/;
+const SEMVER_REGEX = /^[v<>=]*(\d+)(?:\.([x*]|\d+)(?:\.([x*]|\d+)?(?:-([\da-z\-]+(?:\.[\da-z\-]+)*))?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?)?)?$/i;
 
 export const SUPPORTED_OPERATORS: Operator[] = [
   ">",

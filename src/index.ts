@@ -35,7 +35,10 @@ interface ParsedVersion {
   prerelease: string[] | null;
 }
 
-export function validateAndParse(version: string): ParsedVersion {
+/**
+ * @internal
+ */
+function validateAndParse(version: string): ParsedVersion {
   if (typeof version !== "string") {
     throw new TypeError("version must be a string");
   }
@@ -55,7 +58,10 @@ export function validateAndParse(version: string): ParsedVersion {
   };
 }
 
-export function compareStrings(a: string, b: string): number {
+/**
+ * @internal
+ */
+function compareStrings(a: string, b: string): number {
   // wildcards are considered equal to anything
   if (isWildcard(a) || isWildcard(b)) {
     return 0;
@@ -79,6 +85,9 @@ export function compareStrings(a: string, b: string): number {
   return a === b ? 0 : a > b ? 1 : -1;
 }
 
+/**
+ * @internal
+ */
 function compareSegments(segmentsA: string[], segmentsB: string[]): number {
   const len = Math.max(segmentsA.length, segmentsB.length);
 

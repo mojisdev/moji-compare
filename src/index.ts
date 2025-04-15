@@ -38,7 +38,4 @@ export default {
   minor,
   patch,
   satisfies,
-  major,
-  minor,
-  patch,
 };

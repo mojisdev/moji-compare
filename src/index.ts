@@ -5,7 +5,10 @@ import {
   gte,
   lt,
   lte,
+  major,
+  minor,
   neq,
+  patch,
 } from "./helpers";
 import { satisfies } from "./satisfies";
 
@@ -16,7 +19,10 @@ export {
   gte,
   lt,
   lte,
+  major,
+  minor,
   neq,
+  patch,
   satisfies,
 };
 
@@ -28,5 +34,8 @@ export default {
   lte,
   neq,
   compare,
+  major,
+  minor,
+  patch,
   satisfies,
 };

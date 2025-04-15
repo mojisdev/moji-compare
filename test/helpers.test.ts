@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { eq, gt, gte, lt, lte, neq } from "../src";
+import { eq, gt, gte, lt, lte, neq } from "../src/helpers";
 
 describe("lt", () => {
   it.each([

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { compare } from "../src";
+import { compare } from "../src/compare";
 
 describe("compare", () => {
   describe("single-segment versions", () => {

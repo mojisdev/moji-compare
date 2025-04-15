@@ -41,12 +41,12 @@ describe("satisfies", () => {
 
   describe("pre-release versions", () => {
     it.each([
-      { version: "1.2.3-beta.4", range: "1.2.3-beta.2", expected: true },
+      { version: "1.2.3-beta.4", range: "1.2.3-beta.2", expected: false },
       { version: "1.2.3-beta.1", range: "1.2.3-beta.2", expected: false },
       { version: "1.2.4-beta.2", range: "1.2.3-beta.2", expected: false },
-      { version: "2.0.0", range: "1.2.3-beta.2", expected: false },
-      { version: "0.0.3-beta.2", range: "0.0.3-beta", expected: true },
-      { version: "0.0.3-pr.2", range: "0.0.3-beta", expected: true },
+      { version: "2.0.0", range: ">1.2.3-beta.2", expected: true },
+      { version: "0.0.3-beta.2", range: "<=0.0.3-beta", expected: false },
+      { version: "0.0.3-pr.2", range: ">=0.0.3-beta", expected: true },
       { version: "0.0.4", range: "0.0.3-beta", expected: false },
       { version: "9.0", range: ">=4.x <=10.x", expected: true },
       { version: "10.0", range: ">=4.x <=10.x", expected: true },

@@ -277,6 +277,4 @@ export default {
   gte,
   eq,
   neq,
-  validateAndParse,
-  compareStrings,
 };

@@ -100,18 +100,24 @@ describe("gt", () => {
 
 describe("major", () => {
   it.each([
-    { version: "1.2.3", expected: "1" },
-    { version: "10.0.0", expected: "10" },
-    { version: "0.2.3", expected: "0" },
-    { version: "v1.2.3", expected: "1" },
-    { version: "1.2.3-alpha", expected: "1" },
-    { version: "1.2.3+build", expected: "1" },
-    { version: "1.x.x", expected: "1" },
+    { version: "1.2.3", expected: 1 },
+    { version: "10.0.0", expected: 10 },
+    { version: "0.2.3", expected: 0 },
+    { version: "v1.2.3", expected: 1 },
+    { version: "1.2.3-alpha", expected: 1 },
+    { version: "1.2.3+build", expected: 1 },
+    { version: "1.2", expected: 1 },
+    { version: "1", expected: 1 },
+    { version: "1.x.x", expected: 1 },
+    { version: "1.2.x", expected: 1 },
+    { version: "v1.x.x", expected: 1 },
+    { version: "v1.2.x", expected: 1 },
   ])("major($version) -> $expected", ({ version, expected }) => {
     expect(major(version)).toBe(expected);
   });
 
   it("throws for invalid versions", () => {
+    expect(() => major("x.x.x")).toThrow();
     expect(() => major("invalid")).toThrow();
     expect(() => major("1.2.3a")).toThrow();
     expect(() => major("1.2.")).toThrow();
@@ -120,19 +126,19 @@ describe("major", () => {
 
 describe("minor", () => {
   it.each([
-    { version: "1.2.3", expected: "2" },
-    { version: "10.5.0", expected: "5" },
-    { version: "0.0.3", expected: "0" },
-    { version: "v1.2.3", expected: "2" },
-    { version: "1.2.3-alpha", expected: "2" },
-    { version: "1.2.3+build", expected: "2" },
-    { version: "1.x.x", expected: "x" },
-    { version: "1", expected: "0" },
+    { version: "1.2.3", expected: 2 },
+    { version: "10.5.0", expected: 5 },
+    { version: "0.0.3", expected: 0 },
+    { version: "v1.2.3", expected: 2 },
+    { version: "1.2.3-alpha", expected: 2 },
+    { version: "1.2.3+build", expected: 2 },
+    { version: "1", expected: 0 },
   ])("minor($version) -> $expected", ({ version, expected }) => {
     expect(minor(version)).toBe(expected);
   });
 
   it("throws for invalid versions", () => {
+    expect(() => minor("1.x.x")).toThrow();
     expect(() => minor("invalid")).toThrow();
     expect(() => minor("1.2.3a")).toThrow();
     expect(() => minor("1.2.")).toThrow();
@@ -141,15 +147,14 @@ describe("minor", () => {
 
 describe("patch", () => {
   it.each([
-    { version: "1.2.3", expected: "3" },
-    { version: "10.5.7", expected: "7" },
-    { version: "0.0.0", expected: "0" },
-    { version: "v1.2.3", expected: "3" },
-    { version: "1.2.3-alpha", expected: "3" },
-    { version: "1.2.3+build", expected: "3" },
-    { version: "1.2.x", expected: "x" },
-    { version: "1.2", expected: "0" },
-    { version: "1", expected: "0" },
+    { version: "1.2.3", expected: 3 },
+    { version: "10.5.7", expected: 7 },
+    { version: "0.0.0", expected: 0 },
+    { version: "v1.2.3", expected: 3 },
+    { version: "1.2.3-alpha", expected: 3 },
+    { version: "1.2.3+build", expected: 3 },
+    { version: "1.2", expected: 0 },
+    { version: "1", expected: 0 },
   ])("patch($version) -> $expected", ({ version, expected }) => {
     expect(patch(version)).toBe(expected);
   });
@@ -158,6 +163,7 @@ describe("patch", () => {
     expect(() => patch("invalid")).toThrow();
     expect(() => patch("1.2.3a")).toThrow();
     expect(() => patch("1.2.")).toThrow();
+    expect(() => patch("1.2.x")).toThrow();
   });
 });
 

@@ -1,4 +1,4 @@
-import { compare } from "./compare";
+import { compare, compareSortable } from "./compare";
 import {
   eq,
   gt,
@@ -15,6 +15,7 @@ import { satisfies } from "./satisfies";
 
 export {
   compare,
+  compareSortable,
   eq,
   gt,
   gte,
@@ -41,4 +42,5 @@ export default {
   patch,
   satisfies,
   isValid,
+  compareSortable,
 };

@@ -101,37 +101,55 @@ export function neq(v1: string, v2: string): boolean {
 /**
  * Extract the major version number from a valid semver string.
  *
- * @param version - A semver version string (e.g. "1.2.3")
- * @returns The major version number as a string
+ * @param {string} version - A semver version string (e.g. "1.2.3")
+ * @returns {number} The major version number
  * @throws {Error} If the version string is invalid
  */
-export function major(version: string): string {
+export function major(version: string): number {
   const { major } = validateAndParse(version);
-  return major;
+
+  const parsed = Number.parseInt(major, 10);
+  if (Number.isNaN(parsed)) {
+    throw new TypeError(`could not cast patch version to number: ${major}`);
+  }
+
+  return parsed;
 }
 
 /**
  * Extract the minor version number from a valid semver string.
  *
- * @param version - A semver version string (e.g. "1.2.3")
- * @returns The minor version number as a string
+ * @param {string} version - A semver version string (e.g. "1.2.3")
+ * @returns {number} The minor version number
  * @throws {Error} If the version string is invalid
  */
-export function minor(version: string): string {
+export function minor(version: string): number {
   const { minor } = validateAndParse(version);
-  return minor;
+
+  const parsed = Number.parseInt(minor, 10);
+  if (Number.isNaN(parsed)) {
+    throw new TypeError(`could not cast patch version to number: ${minor}`);
+  }
+
+  return parsed;
 }
 
 /**
  * Extract the patch version number from a valid semver string.
  *
- * @param version - A semver version string (e.g. "1.2.3")
- * @returns The patch version number as a string
+ * @param {string} version - A semver version string (e.g. "1.2.3")
+ * @returns {number} The patch version number
  * @throws {Error} If the version string is invalid
  */
-export function patch(version: string): string {
+export function patch(version: string): number {
   const { patch } = validateAndParse(version);
-  return patch;
+
+  const parsed = Number.parseInt(patch, 10);
+  if (Number.isNaN(parsed)) {
+    throw new TypeError(`could not cast patch version to number: ${patch}`);
+  }
+
+  return parsed;
 }
 
 /**

@@ -108,6 +108,10 @@ export function neq(v1: string, v2: string): boolean {
 export function major(version: string): number {
   const { major } = validateAndParse(version);
 
+  if (major === "x" || major === "*") {
+    return 0;
+  }
+
   const parsed = Number.parseInt(major, 10);
   if (Number.isNaN(parsed)) {
     throw new TypeError(`could not cast patch version to number: ${major}`);
@@ -126,6 +130,10 @@ export function major(version: string): number {
 export function minor(version: string): number {
   const { minor } = validateAndParse(version);
 
+  if (minor === "x" || minor === "*") {
+    return 0;
+  }
+
   const parsed = Number.parseInt(minor, 10);
   if (Number.isNaN(parsed)) {
     throw new TypeError(`could not cast patch version to number: ${minor}`);
@@ -143,6 +151,10 @@ export function minor(version: string): number {
  */
 export function patch(version: string): number {
   const { patch } = validateAndParse(version);
+
+  if (patch === "x" || patch === "*") {
+    return 0;
+  }
 
   const parsed = Number.parseInt(patch, 10);
   if (Number.isNaN(parsed)) {
@@ -182,7 +194,7 @@ export function isValid(version?: string | null): boolean {
  * Coerces a version string by parsing its components and ensuring they are valid numbers.
  *
  * @param {string} version - The version string to coerce.
- * @returns {string} The coerced version string in the format "major.minor.patch".
+ * @returns {string | null} The coerced version string in the format "major.minor.patch".
  * @throws {TypeError} When the version components cannot be cast to numbers.
  *
  * @example
@@ -191,21 +203,25 @@ export function isValid(version?: string | null): boolean {
  * coerce("1.2.3-beta.1") // "1.2.3"
  * ```
  */
-export function coerce(version: string): string {
-  let { major, minor, patch } = validateAndParse(version);
+export function coerce(version: string): string | null {
+  try {
+    let { major, minor, patch, prerelease } = validateAndParse(version);
 
-  // replace x or * with 0
-  if (major === "x" || major === "*") major = "0";
-  if (minor === "x" || minor === "*") minor = "0";
-  if (patch === "x" || patch === "*") patch = "0";
+    // replace x or * with 0
+    if (major === "x" || major === "*") major = "0";
+    if (minor === "x" || minor === "*") minor = "0";
+    if (patch === "x" || patch === "*") patch = "0";
 
-  const parsedMajor = Number.parseInt(major, 10);
-  const parsedMinor = Number.parseInt(minor, 10);
-  const parsedPatch = Number.parseInt(patch, 10);
+    const parsedMajor = Number.parseInt(major, 10);
+    const parsedMinor = Number.parseInt(minor, 10);
+    const parsedPatch = Number.parseInt(patch, 10);
 
-  if (Number.isNaN(parsedMajor) || Number.isNaN(parsedMinor) || Number.isNaN(parsedPatch)) {
-    throw new TypeError(`could not cast version to number: ${version}`);
+    if (Number.isNaN(parsedMajor) || Number.isNaN(parsedMinor) || Number.isNaN(parsedPatch)) {
+      throw new TypeError(`could not cast version to number: ${version}`);
+    }
+
+    return `${parsedMajor}.${parsedMinor}.${parsedPatch}${prerelease ? `-${prerelease.join(".")}` : ""}`;
+  } catch {
+    return null;
   }
-
-  return `${parsedMajor}.${parsedMinor}.${parsedPatch}`;
 }

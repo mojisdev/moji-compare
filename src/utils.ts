@@ -1,6 +1,7 @@
 export type Operator = ">" | ">=" | "=" | "<" | "<=";
 export type SortableNumber = 0 | 1 | -1;
-const SEMVER_REGEX = /^[v<>=]*(\d+)(?:\.([x*]|\d+)(?:\.([x*]|\d+)(?:-([\da-z\-]+(?:\.[\da-z\-]+)*))?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?)?)?$/i;
+
+const SEMVER_REGEX = /^[v<>=]*([x*]|\d+)(?:\.([x*]|\d+)(?:\.([x*]|\d+)(?:-([\da-z\-]+(?:\.[\da-z\-]+)*))?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?)?)?$/i;
 
 export const SUPPORTED_OPERATORS: Operator[] = [
   ">",

@@ -177,3 +177,35 @@ export function isValid(version?: string | null): boolean {
     return false;
   }
 }
+
+/**
+ * Coerces a version string by parsing its components and ensuring they are valid numbers.
+ *
+ * @param {string} version - The version string to coerce.
+ * @returns {string} The coerced version string in the format "major.minor.patch".
+ * @throws {TypeError} When the version components cannot be cast to numbers.
+ *
+ * @example
+ * ```ts
+ * coerce("v1.2.3") // "1.2.3"
+ * coerce("1.2.3-beta.1") // "1.2.3"
+ * ```
+ */
+export function coerce(version: string): string {
+  let { major, minor, patch } = validateAndParse(version);
+
+  // replace x or * with 0
+  if (major === "x" || major === "*") major = "0";
+  if (minor === "x" || minor === "*") minor = "0";
+  if (patch === "x" || patch === "*") patch = "0";
+
+  const parsedMajor = Number.parseInt(major, 10);
+  const parsedMinor = Number.parseInt(minor, 10);
+  const parsedPatch = Number.parseInt(patch, 10);
+
+  if (Number.isNaN(parsedMajor) || Number.isNaN(parsedMinor) || Number.isNaN(parsedPatch)) {
+    throw new TypeError(`could not cast version to number: ${version}`);
+  }
+
+  return `${parsedMajor}.${parsedMinor}.${parsedPatch}`;
+}

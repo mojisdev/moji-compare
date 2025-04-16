@@ -1,5 +1,6 @@
 import { compare, compareSortable } from "./compare";
 import {
+  coerce,
   eq,
   gt,
   gte,
@@ -14,6 +15,7 @@ import {
 import { satisfies } from "./satisfies";
 
 export {
+  coerce,
   compare,
   compareSortable,
   eq,
@@ -43,4 +45,5 @@ export default {
   satisfies,
   isValid,
   compareSortable,
+  coerce,
 };

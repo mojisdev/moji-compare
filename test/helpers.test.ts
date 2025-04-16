@@ -1,5 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { eq, gt, gte, isValid, lt, lte, major, minor, neq, patch } from "../src/helpers";
+import {
+  coerce,
+  eq,
+  gt,
+  gte,
+  isValid,
+  lt,
+  lte,
+  major,
+  minor,
+  neq,
+  patch,
+} from "../src/helpers";
 
 describe("lt", () => {
   it.each([
@@ -181,7 +193,34 @@ describe("isValid", () => {
     { version: "", expected: false },
     { version: "1.2.3a", expected: false },
     { version: "1.2.", expected: false },
+    { version: "x.x.x", expected: false },
+    { version: "1.2.3-alpha.1", expected: true },
+    { version: "1.2.3+build.1", expected: true },
   ])("isValid($version) -> $expected", ({ version, expected }) => {
     expect(isValid(version)).toBe(expected);
+  });
+});
+
+describe("coerce", () => {
+  it.each([
+    { version: "1.2.3", expected: "1.2.3" },
+    { version: "v1.2.3", expected: "1.2.3" },
+    { version: "1.2.3-alpha", expected: "1.2.3" },
+    { version: "1.2.3+build", expected: "1.2.3" },
+    { version: "1.2", expected: "1.2.0" },
+    { version: "1", expected: "1.0.0" },
+    { version: "1.x.x", expected: "1.0.0" },
+    { version: "1.2.x", expected: "1.2.0" },
+    { version: "v1.x.x", expected: "1.0.0" },
+    { version: "v1.2.x", expected: "1.2.0" },
+  ])("coerce($version) -> $expected", ({ version, expected }) => {
+    expect(coerce(version)).toBe(expected);
+  });
+
+  it("throws for invalid versions", () => {
+    expect(() => coerce("invalid")).toThrow();
+    expect(() => coerce("1.2.3a")).toThrow();
+    expect(() => coerce("1.2.")).toThrow();
+    expect(() => coerce("x.x.x")).toThrow();
   });
 });

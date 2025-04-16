@@ -3,6 +3,7 @@ import {
   eq,
   gt,
   gte,
+  isValid,
   lt,
   lte,
   major,
@@ -17,6 +18,7 @@ export {
   eq,
   gt,
   gte,
+  isValid,
   lt,
   lte,
   major,
@@ -38,4 +40,5 @@ export default {
   minor,
   patch,
   satisfies,
+  isValid,
 };

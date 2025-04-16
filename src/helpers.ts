@@ -133,3 +133,29 @@ export function patch(version: string): string {
   const { patch } = validateAndParse(version);
   return patch;
 }
+
+/**
+ * Validates if a string is a valid version.
+ *
+ * @param {undefined} version - The version string to validate
+ * @returns {boolean} `true` if the version is valid, `false` otherwise
+ *
+ * @example
+ * ```ts
+ * isValid(undefined); // false
+ * isValid('1.0.0'); // true
+ * isValid('invalid'); // false
+ * ```
+ */
+export function isValid(version?: string): boolean {
+  if (!version) {
+    return false;
+  }
+
+  try {
+    validateAndParse(version);
+    return true;
+  } catch {
+    return false;
+  }
+}

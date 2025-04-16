@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { eq, gt, gte, lt, lte, major, minor, neq, patch } from "../src/helpers";
+import { eq, gt, gte, isValid, lt, lte, major, minor, neq, patch } from "../src/helpers";
 
 describe("lt", () => {
   it.each([
@@ -158,5 +158,24 @@ describe("patch", () => {
     expect(() => patch("invalid")).toThrow();
     expect(() => patch("1.2.3a")).toThrow();
     expect(() => patch("1.2.")).toThrow();
+  });
+});
+
+describe("isValid", () => {
+  it.each([
+    { version: "1.2.3", expected: true },
+    { version: "1.2.3-alpha", expected: true },
+    { version: "1.2.3+build", expected: true },
+    { version: "v1.2.3", expected: true },
+    { version: "1.x.x", expected: true },
+    { version: "1.2.x", expected: true },
+    { version: "invalid", expected: false },
+    { version: undefined, expected: false },
+    { version: null, expected: false },
+    { version: "", expected: false },
+    { version: "1.2.3a", expected: false },
+    { version: "1.2.", expected: false },
+  ])("isValid($version) -> $expected", ({ version, expected }) => {
+    expect(isValid(version)).toBe(expected);
   });
 });

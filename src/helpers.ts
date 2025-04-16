@@ -137,7 +137,7 @@ export function patch(version: string): string {
 /**
  * Validates if a string is a valid version.
  *
- * @param {undefined} version - The version string to validate
+ * @param {string? | null} version - The version string to validate
  * @returns {boolean} `true` if the version is valid, `false` otherwise
  *
  * @example
@@ -147,7 +147,7 @@ export function patch(version: string): string {
  * isValid('invalid'); // false
  * ```
  */
-export function isValid(version?: string): boolean {
+export function isValid(version?: string | null): boolean {
   if (!version) {
     return false;
   }

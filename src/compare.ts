@@ -1,4 +1,4 @@
-import type { Operator } from "./utils";
+import type { Operator, SortableNumber } from "./utils";
 import { compareSegments, compareStrings, COMPARISON_MAP, SUPPORTED_OPERATORS, validateAndParse } from "./utils";
 
 /**
@@ -36,8 +36,6 @@ export function compare(v1: string, v2: string, operator: Operator): boolean {
   return COMPARISON_MAP[operator].includes(compareSortable(v1, v2));
 }
 
-export type SortableNumber = 0 | 1 | -1;
-
 export function compareSortable(v1: string, v2: string): SortableNumber {
   if (typeof v1 !== "string" || typeof v2 !== "string") {
     throw new TypeError("both v1 and v2 must be strings");
@@ -50,19 +48,19 @@ export function compareSortable(v1: string, v2: string): SortableNumber {
   // compare major versions
   let result = compareStrings(parts1.major, parts2.major);
   if (result !== 0) {
-    return result as SortableNumber;
+    return result;
   }
 
   // compare minor versions
   result = compareStrings(parts1.minor, parts2.minor);
   if (result !== 0) {
-    return result as SortableNumber;
+    return result;
   }
 
   // compare patch version
   result = compareStrings(parts1.patch, parts2.patch);
   if (result !== 0) {
-    return result as SortableNumber;
+    return result;
   }
 
   // handle pre-release comparison
@@ -72,7 +70,7 @@ export function compareSortable(v1: string, v2: string): SortableNumber {
   // both have pre-release identifiers
   if (pre1 && pre2) {
     result = compareSegments(pre1, pre2);
-    return result as SortableNumber;
+    return result;
   }
 
   // only one has pre-release identifiers

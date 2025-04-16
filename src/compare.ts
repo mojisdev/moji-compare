@@ -1,4 +1,4 @@
-import type { Operator } from "./utils";
+import type { Operator, SortableNumber } from "./utils";
 import { compareSegments, compareStrings, COMPARISON_MAP, SUPPORTED_OPERATORS, validateAndParse } from "./utils";
 
 /**
@@ -33,6 +33,14 @@ export function compare(v1: string, v2: string, operator: Operator): boolean {
     throw new TypeError(`operator must be one of: ${SUPPORTED_OPERATORS.join(", ")}`);
   }
 
+  return COMPARISON_MAP[operator].includes(compareSortable(v1, v2));
+}
+
+export function compareSortable(v1: string, v2: string): SortableNumber {
+  if (typeof v1 !== "string" || typeof v2 !== "string") {
+    throw new TypeError("both v1 and v2 must be strings");
+  }
+
   // validate and parse versions
   const parts1 = validateAndParse(v1);
   const parts2 = validateAndParse(v2);
@@ -40,19 +48,19 @@ export function compare(v1: string, v2: string, operator: Operator): boolean {
   // compare major versions
   let result = compareStrings(parts1.major, parts2.major);
   if (result !== 0) {
-    return COMPARISON_MAP[operator].includes(result);
+    return result;
   }
 
   // compare minor versions
   result = compareStrings(parts1.minor, parts2.minor);
   if (result !== 0) {
-    return COMPARISON_MAP[operator].includes(result);
+    return result;
   }
 
   // compare patch version
   result = compareStrings(parts1.patch, parts2.patch);
   if (result !== 0) {
-    return COMPARISON_MAP[operator].includes(result);
+    return result;
   }
 
   // handle pre-release comparison
@@ -62,14 +70,14 @@ export function compare(v1: string, v2: string, operator: Operator): boolean {
   // both have pre-release identifiers
   if (pre1 && pre2) {
     result = compareSegments(pre1, pre2);
-    return COMPARISON_MAP[operator].includes(result);
+    return result;
   }
 
   // only one has pre-release identifiers
   // pre-release versions have lower precedence than normal versions
-  if (pre1) return COMPARISON_MAP[operator].includes(-1);
-  if (pre2) return COMPARISON_MAP[operator].includes(1);
+  if (pre1) return -1;
+  if (pre2) return 1;
 
   // if both are equal and no pre-release identifiers
-  return COMPARISON_MAP[operator].includes(0);
+  return 0;
 }

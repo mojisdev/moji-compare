@@ -1,5 +1,5 @@
 export type Operator = ">" | ">=" | "=" | "<" | "<=";
-
+export type SortableNumber = 0 | 1 | -1;
 const SEMVER_REGEX = /^[v<>=]*(\d+)(?:\.([x*]|\d+)(?:\.([x*]|\d+)(?:-([\da-z\-]+(?:\.[\da-z\-]+)*))?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?)?)?$/i;
 
 export const SUPPORTED_OPERATORS: Operator[] = [
@@ -58,7 +58,7 @@ export function validateAndParse(version: string): ParsedVersion {
 /**
  * @internal
  */
-export function compareStrings(a: string, b: string): number {
+export function compareStrings(a: string, b: string): SortableNumber {
   // wildcards are considered equal to anything
   if (isWildcard(a) || isWildcard(b)) {
     return 0;
@@ -85,7 +85,7 @@ export function compareStrings(a: string, b: string): number {
 /**
  * @internal
  */
-export function compareSegments(segmentsA: string[], segmentsB: string[]): number {
+export function compareSegments(segmentsA: string[], segmentsB: string[]): SortableNumber {
   const len = Math.max(segmentsA.length, segmentsB.length);
 
   for (let i = 0; i < len; i++) {

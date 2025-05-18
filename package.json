@@ -11,7 +11,10 @@
   "packageManager": "pnpm@10.7.1",
   "license": "MIT",
   "homepage": "https://github.com/mojisdev/moji-compare",
-  "repository": "https://github.com/mojisdev/moji-compare",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojisdev/moji-compare.git"
+  },
   "bugs": {
     "url": "https://github.com/mojisdev/moji-compare/issues"
   },

@@ -51,12 +51,12 @@
   "devDependencies": {
     "@luxass/eslint-config": "4.19.0",
     "@types/node": "22.16.3",
-    "@vitest/coverage-v8": "3.2.2",
+    "@vitest/coverage-v8": "3.2.4",
     "eslint": "^9.23.0",
     "publint": "0.3.12",
     "tsdown": "0.12.9",
     "typescript": "5.8.3",
-    "vitest": "3.2.2"
+    "vitest": "3.2.4"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
